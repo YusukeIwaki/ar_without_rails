@@ -1,9 +1,13 @@
 require './config/init.rb'
 
-TodoItem.group("DATE_FORMAT(created_at, '%Y-%m-%d')").count.each do |created_at, count|
-  puts " #{created_at}: #{count}"
+results =
+  ActiveRecord::Base.connected_to(database: :data) do
+    TodoItem.group("DATE_FORMAT(created_at, '%Y-%m-%d')").count
+  end
+
+data = results.map do |created_at, count|
+  { target_date: created_at, count: count, aggregated_at: Time.current }
 end
-
-puts '-' * 30
-
-puts "      Total: #{TodoItem.count}"
+ActiveRecord::Base.connected_to(database: :datacenter) do
+  DailyAggregationResult.insert_all(data)
+end

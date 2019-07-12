@@ -9,7 +9,7 @@ config_database_yml = YAML::load(ERB.new(File.read(config_database_yml_file)).re
 
 # データベース接続の定義. created_at などで ActiveSupport::TimeWithZone を返してもらうための設定。
 Time.zone = 'Tokyo'
-ActiveRecord::Base.establish_connection(config_database_yml['development'])
+ActiveRecord::Base.configurations = config_database_yml['development']
 ActiveRecord::Base.time_zone_aware_attributes = true
 
 # モデルのクラスをrequireしておく
