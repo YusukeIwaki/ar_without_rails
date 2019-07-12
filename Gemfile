@@ -4,6 +4,6 @@ source "https://rubygems.org"
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-gem 'activerecord'
+gem 'activerecord', '~> 6.0.0.rc1'
 gem 'mysql2'
 gem 'rake'

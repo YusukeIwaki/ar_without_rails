@@ -7,6 +7,13 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
+  datacenter:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: fugafuga
+    volumes:
+      - datacenter-data:/var/lib/mysql
+
   workspace:
     image: ruby:2.6
     stdin_open: true
@@ -14,14 +21,20 @@ services:
     environment:
       MYSQL_HOST: mysql
       MYSQL_PASSWORD: hogehoge
+      DATACENTER_MYSQL_HOST: datacenter
+      DATACENTER_MYSQL_PASSWORD: fugafuga
     depends_on:
       - mysql
+      - datacenter
     links:
       - mysql
+      - datacenter
     volumes:
       - .:/usr/src/app
     working_dir: /usr/src/app
 
 volumes:
   mysql-data:
+    driver: local
+  datacenter-data:
     driver: local
