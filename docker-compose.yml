@@ -1,0 +1,27 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: hogehoge
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  workspace:
+    image: ruby:2.6
+    stdin_open: true
+    tty: true
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PASSWORD: hogehoge
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+
+volumes:
+  mysql-data:
+    driver: local
