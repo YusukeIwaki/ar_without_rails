@@ -1,0 +1,8 @@
+development:
+  adapter: mysql2
+  encoding: utf8mb4
+  database: ar_without_rails_playground
+  pool: 5
+  username: root
+  password: <%= ENV['MYSQL_PASSWORD'] %>
+  host: <%= ENV['MYSQL_HOST'] %>
