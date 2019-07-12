@@ -16,3 +16,4 @@ development:
     username: root
     password: <%= ENV['DATACENTER_MYSQL_PASSWORD'] %>
     host: <%= ENV['DATACENTER_MYSQL_HOST'] %>
+    migrations_paths: db/migrate_for_datacenter
